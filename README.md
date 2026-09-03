@@ -2,9 +2,9 @@
 
 > **This is your portfolio.** Everything you build, hand in and learn during the minor lives here.
 
-- **Name:** _your name here_
-- **Student number:** _your student number here_
-- **Cohort / year:** _e.g. 2026-2027_
+- **Name:** _Milou van Leuven_
+- **Student number:** _22087354_
+- **Cohort / year:** _ITD-HMVT26-K108 2026-2027_
 
 ---
 
@@ -97,3 +97,4 @@ Templates and a Gantt-chart guide are waiting for you in [`Term 1/Learning Goals
 ## Getting help
 
 Stuck on git? Run `git status` first, then ask. Something unclear in this template? Ask your instructor - do not guess and hand in nothing.
+Set up my portfolio 
