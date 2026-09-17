@@ -1,0 +1,480 @@
+{
+  "name": "Flow state",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Flow state - Daily check-in",
+        "formDescription": "Take a moment to check in with yourself. Your answers help Flow State choose a small personalised action to support your well-being today. ",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "How is your energy level right now? (1= very low, 10= very high)",
+              "fieldType": "number",
+              "fieldName": "Energy ",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "How mentally overwhelmed do you feel right now? (1= not at all, 10= extremely)",
+              "fieldType": "number",
+              "fieldName": "Mentalload",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "How many hours did you sleep last night? ",
+              "fieldType": "number",
+              "fieldName": "SleepHours",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "How are you feeling emotionally right now?",
+              "fieldType": "radio",
+              "fieldName": "Mood",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Great"
+                  },
+                  {
+                    "option": "Good"
+                  },
+                  {
+                    "option": "Okay"
+                  },
+                  {
+                    "option": "Not great"
+                  },
+                  {
+                    "option": "Really struggling"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Is there anything on your mind today? (optional)",
+              "fieldName": "OnMyMind"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d70ab0ff-9751-407d-bc50-08d92dbc4e24",
+      "name": "On form submission",
+      "webhookId": "2f281ad2-c8f0-47ac-81e9-d8ddcdccd912"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a547690c-ce89-413b-880f-88107aaebe47",
+              "name": "CheckInSummary",
+              "value": "=Energy: {{ $json.Energy }}/10 Mental load: {{ $json.Mentalload }}/10 Sleep: {{ $json.SleepHours }} hours Mood: {{ $json.Mood }} On my mind: {{ $json.OnMyMind }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "ae0bcce1-f5fa-434a-a373-34170e346024",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "milouvanleuven@gmail.com",
+          "mode": "list",
+          "cachedResultName": "milouvanleuven@gmail.com"
+        },
+        "timeMin": "={{ $now.startOf('day') }}",
+        "timeMax": "={{ $now.endOf('day') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        448,
+        0
+      ],
+      "id": "45fdec76-a9fd-452a-ab0d-d73be107363a",
+      "name": "Get many events",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "3jrKzExjmeDmxGSw",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n// Alleen afspraken met een echte start- en eindtijd.\n// All-day events worden hierdoor niet meegenomen.\nconst events = items\n  .map(item => item.json)\n  .filter(event =>\n    event.status !== 'cancelled' &&\n    event.start?.dateTime &&\n    event.end?.dateTime\n  );\n\nlet scheduledMinutes = 0;\nlet firstStart = null;\nlet lastEnd = null;\n\nfor (const event of events) {\n  const start = new Date(event.start.dateTime);\n  const end = new Date(event.end.dateTime);\n\n  scheduledMinutes += (end - start) / 60000;\n\n  if (!firstStart || start < firstStart) firstStart = start;\n  if (!lastEnd || end > lastEnd) lastEnd = end;\n}\n\nconst eventCount = events.length;\nconst scheduledHours = scheduledMinutes / 60;\n\n// Workload-score\nlet loadScore = 0;\n\nif (scheduledMinutes > 300) loadScore += 1;\nif (scheduledMinutes > 420) loadScore += 1;\nif (eventCount >= 5) loadScore += 1;\n\nif (firstStart) {\n  const firstHour = firstStart.getHours() + firstStart.getMinutes() / 60;\n  if (firstHour < 9) loadScore += 1;\n}\n\nif (lastEnd) {\n  const lastHour = lastEnd.getHours() + lastEnd.getMinutes() / 60;\n  if (lastHour > 18) loadScore += 1;\n}\n\nlet todayLoad = 'Light';\n\nif (loadScore >= 4) {\n  todayLoad = 'Busy';\n} else if (loadScore >= 2) {\n  todayLoad = 'Moderate';\n}\n\nreturn [{\n  json: {\n    eventCount,\n    scheduledMinutes: Math.round(scheduledMinutes),\n    scheduledHours: Math.round(scheduledHours * 10) / 10,\n    firstEvent: firstStart ? firstStart.toISOString() : null,\n    lastEvent: lastEnd ? lastEnd.toISOString() : null,\n    todayLoadScore: loadScore,\n    todayLoad\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        608,
+        0
+      ],
+      "id": "3b36986d-1fec-4083-b011-00ab775682a4",
+      "name": "Code in JavaScript",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-5-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are Flow State, a non-medical personal well-being assistant.\n\nAnalyze the user's daily check-in together with their schedule and give a short, useful personal reflection.\n\nLook at:\n- energy\n- mental load\n- sleep duration\n- mood\n- what is on the user's mind\n- today's calendar workload\n\nDo not diagnose medical or mental-health conditions.\nDo not claim that one factor caused another.\nIf information is missing, do not invent it.\nGive practical, low-risk advice that is realistic for the user's schedule.\n\nRespond in a friendly and concise way with:\n1. Daily summary\n2. What is going well\n3. What to watch\n4. Advice for today"
+            },
+            {
+              "content": "=Here is today's personal check-in:\n\nEnergy: {{ $('On form submission').item.json.Energy }}/10\nMental load: {{ $('On form submission').item.json.MentalLoad }}/10\nSleep: {{ $('On form submission').item.json.SleepHours }} hours\nMood: {{ $('On form submission').item.json.Mood }}\nOn my mind: {{ $('On form submission').item.json.OnMyMind }}\n\nCalendar information for the upcoming period:\n{{ JSON.stringify($('Get many events').all().map(item => ({\n  start: item.json.start,\n  end: item.json.end\n}))) }}\n\nUse this information to create today's Flow State review.\n\nWhen discussing the calendar:\n- consider how busy the schedule is\n- consider how much scheduled time there is\n- consider whether there are early or late events\n- do not repeat event titles or private calendar details\n- use the schedule only as context for practical advice\n\nIf calendar information is empty, still create the review using the personal check-in.\n\nDo not diagnose anything and do not claim that sleep, workload, mood, or another factor caused how the user feels.\n\n\n\nHISTORICAL DATA:\n{{ JSON.stringify($('Get row(s) in sheet').all().map(item => item.json)) }}\n\nUse the historical data above to identify patterns between sleep, energy, mental load, mood, and calendar workload. Only mention a pattern when the available data actually supports it. If there is not enough historical data yet, say that more check-ins are needed before reliable patterns can be identified."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        1008,
+        0
+      ],
+      "id": "89cedc76-7282-46ea-b3f0-38edb68d4cdc",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/19oNp1CVB34jzXvu2r9q7n55pLLGOmFUrq88UB6lEC7U/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "DailyData",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19oNp1CVB34jzXvu2r9q7n55pLLGOmFUrq88UB6lEC7U/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $now.toISODate() }}",
+            "Energy": "={{ $('On form submission').first().json['Energy '] }}",
+            "MentalLoad": "={{ $('On form submission').first().json['Mentalload'] }}",
+            "SleepHours": "={{ $('On form submission').first().json['SleepHours'] }}",
+            "Mood": "={{ $('On form submission').first().json['Mood'] }}",
+            "OnMyMind": "={{ $('On form submission').first().json['OnMyMind'] }}",
+            "CalendarEventCount": "={{ $('Code in JavaScript').first().json['eventCount'] }}",
+            "CalendarScheduledHours": "={{ $('Code in JavaScript').first().json['scheduledHours'] }}",
+            "AIReview": "={{ $('Message a model').first().json.output[0].content[0].text }}"
+          },
+          "matchingColumns": [
+            "Date"
+          ],
+          "schema": [
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Energy",
+              "displayName": "Energy",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "MentalLoad",
+              "displayName": "MentalLoad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SleepHours",
+              "displayName": "SleepHours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Mood",
+              "displayName": "Mood",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "OnMyMind",
+              "displayName": "OnMyMind",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CalendarEventCount",
+              "displayName": "CalendarEventCount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CalendarScheduledHours",
+              "displayName": "CalendarScheduledHours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AIReview",
+              "displayName": "AIReview",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1376,
+        0
+      ],
+      "id": "77c1fcec-7bf1-4e82-9e60-3e46dbf5f603",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7YTUK8IBRGQLs2hi",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        240,
+        192
+      ],
+      "id": "9ff42b8e-674a-4740-8073-d079e164f87c",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "sendTo": "milouvanleuven@gmail.com",
+        "subject": "Daily check-in reminder",
+        "emailType": "text",
+        "message": "Good morning!  Time for your daily check-in. It only takes a minute.  Fill in today's check-in here: https://milouvanleuven.app.n8n.cloud/form/2f281ad2-c8f0-47ac-81e9-d8ddcdccd912. Your answers will be combined with today's calendar to create your personal AI review.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        192
+      ],
+      "id": "c02d0c97-5e82-4eac-bfa4-1535bf5dac21",
+      "name": "Send a message",
+      "webhookId": "a3ae99e5-d715-4990-a91f-4f5a693859ee",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "pQW5Bn2wfhFw6G1J",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "19oNp1CVB34jzXvu2r9q7n55pLLGOmFUrq88UB6lEC7U",
+          "mode": "list",
+          "cachedResultName": "Flow state Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19oNp1CVB34jzXvu2r9q7n55pLLGOmFUrq88UB6lEC7U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "DailyData",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19oNp1CVB34jzXvu2r9q7n55pLLGOmFUrq88UB6lEC7U/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        832,
+        0
+      ],
+      "id": "be96c0be-c62a-4857-9f6c-dd3ebe99419b",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7YTUK8IBRGQLs2hi",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Get many events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many events": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "11377409-028b-4224-b70d-555b6cdc29cf",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "675f00d284cd158e7e0973aac66e3c2cfa146dd36cdcaa2253879406c9381765"
+  },
+  "nodeGroups": [],
+  "id": "EY2pkUIRblr2rIyd",
+  "tags": []
+}
