@@ -57,10 +57,10 @@ Flow State uses sensitive information such as mood, sleep, mental load and calen
 
 
 ### Checklist
-- [- ] Prototype code (or export / workflow file) is in `hackathon/`
-- [ -] This week's slides are in `hackathon/`
-- [ -] The prototype actually runs, and I wrote down how to run it
-- [ -] Ethical reflection written above
+- [x] Prototype code (or export / workflow file) is in `hackathon/`
+- [ x] This week's slides are in `hackathon/`
+- [ x] The prototype actually runs, and I wrote down how to run it
+- [ x] Ethical reflection written above
 
 ---
 
@@ -68,13 +68,17 @@ Flow State uses sensitive information such as mood, sleep, mental load and calen
 
 *Only fill this in for the week your group was selected to present. You need at least **one** of these across the whole term.*
 
-- [ ] My group presented in this week
-- [ ] Slides are in `presentation/`
-- [ ] Proof of the live demo is in `presentation/` (recording, screenshots, or link)
+- [x ] My group presented in this week
+- [ x] Slides are in `presentation/`
+- [ x] Proof of the live demo is in `presentation/` (recording, screenshots, or link)
 
 **How did it go? What would I do differently next time?**
+I was very proud of what we built, especially because I had never worked with n8n before. It was challenging at first, but I learned a lot while building the workflow and I was happy that we got it to work.
 
----
+What I found more difficult was presenting the project in English. English is not my first language and I was quite nervous, so the presentation did not go as smoothly as I had hoped. One of the feedback points we received was to add a voice-over to the demo next time. I thought this was useful feedback because it makes the demo easier to follow and gives us more time to prepare what we want to explain.
+
+For the next hackathon, I would therefore prepare the presentation more in advance and use a voice-over for the demo.
+
 
 ## 4. Reflection
 
