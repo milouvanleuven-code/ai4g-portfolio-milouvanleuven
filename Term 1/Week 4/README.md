@@ -5,15 +5,23 @@
 ## 1. Homework & workshop assignments -> [`homework/`](homework/)
 
 **What was the assignment?**
+Use an LLM API (via Python) to build a tool that reduces a specific inequality. The solution must make real API calls, handle responses, and deliver something a real person could use.
 
+Examples: a language accessibility tool, a legal or medical information explainer for non-experts, a bias checker for job postings, a tool that bridges information gaps for underrepresented groups.
 **What did I hand in?**
-_List the files, or link to them. Notebook exports, screenshots, scripts._
+https://dehaagsehogeschool-my.sharepoint.com/:v:/r/personal/22087354_student_hhs_nl/Documents/Bijlagen/Video%20Project%20Moneytranslate.mp4?d=wf024c6f6ca5b46c494fc89dbd4cbef87&csf=1&web=1&e=cfpCm4&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
+
+Video Project Moneytranslate.mp4 
+
 
 **What did I find difficult, and how did I solve it?**
+I found working with Python quite difficult because I have almost no programming experience yet. Especially setting up the API key, installing the right packages and understanding errors in the code took some time. I solved this by working step by step, testing small parts of the code and fixing the errors one by one.
+
+Even though it was challenging, I really enjoyed building MoneyTranslate because I could actually see the code turn into a working tool. I also found the project personally meaningful because I sometimes struggle with understanding complicated financial letters myself. This made me realize that a tool like MoneyTranslate could actually be useful for real people instead of just being a programming exercise.
 
 ### Checklist
-- [ ] My workshop / homework files are in `homework/`
-- [ ] Everything runs without errors, or I explained what does not and why
+- [ x] My workshop / homework files are in `homework/`
+- [x ] Everything runs without errors, or I explained what does not and why
 
 ---
 
@@ -24,36 +32,42 @@ _List the files, or link to them. Notebook exports, screenshots, scripts._
 > Write them down here once you know them.
 
 **Project title:**
-
+MoneyTranslate
 **My pair partner:**
-
+Bart Bruggeling
 **Tool we had to use:**
-
+Claude API or OpenAI API — Large language model APIs, called from your own Python code
 **SDG we had to address:**
-
+10 — Reduced Inequalities
 **What problem does it solve, and for whom?**
-_Name a real, specific user. "Everyone" is not a user._
+MoneyTranslate helps people who have difficulty understanding complex financial letters, especially people with low literacy or limited financial literacy. Important information such as payment amounts, deadlines and consequences can be difficult to understand when financial organisations use complicated language. MoneyTranslate aims to reduce this information barrier by explaining the most important information in simple language.
 
 **What did you build?**
-_Two or three sentences. What can a user actually do with it?_
+We built a Python tool that uses the OpenAI API to simplify difficult financial information. A user can either paste the text of a financial letter or upload a photo of the letter. MoneyTranslate then shows the amount, deadline, required action, possible consequences and any information that is unclear or missing.
 
 **Link to the live thing (if any):**
-_Deployed URL, workflow export, video demo - whatever proves it works._
+https://dehaagsehogeschool-my.sharepoint.com/:v:/r/personal/22087354_student_hhs_nl/Documents/Bijlagen/Video%20Project%20Moneytranslate.mp4?d=wf024c6f6ca5b46c494fc89dbd4cbef87&csf=1&web=1&e=AOn8Wi&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D 
 
 **How do I run it?**
-_Short instructions so someone else can start it._
+1. Install Python.
+2. Install the required packages with `python -m pip install openai python-dotenv`.
+3. Add an OpenAI API key to a local `.env` file as `OPENAI_API_KEY=your_key_here`.
+4. Run `python moneytranslate.py`.
+5. Choose option 1 to paste text or option 2 to upload a photo of a financial letter.
+
+The `.env` file containing the API key is not included in the GitHub repository for security reasons.
 
 **Who did what?**
-_Be honest about the split of work between you and your partner._
+Bart and I worked closely together throughout the project and communicated a lot about our ideas and decisions. I focused a little more on building and testing the Python code, while Bart focused more on developing the idea and preparing the presentation. However, we discussed and worked on all parts of the project together. Overall, we divided the work fairly and had good communication and collaboration throughout the hackathon.
 
 **Ethical reflection - what are the risks of your tool? Who could it harm?**
-_Every hackathon requires this. One honest paragraph beats three vague ones._
+The biggest risk of MoneyTranslate is that the AI could incorrectly interpret important financial information. For example, it could misread an amount or misunderstand a payment deadline. This could particularly harm the people the tool is designed to help, because a user who already has difficulty understanding financial information may be less likely to notice an AI error. To reduce this risk, MoneyTranslate is instructed not to guess unclear amounts, dates or deadlines and to explicitly state when information is unclear or missing. It also does not give financial advice. However, AI can still make mistakes, so MoneyTranslate should be used as an aid for understanding a financial document and not as a replacement for the original document or professional advice.
 
 ### Checklist
-- [ ] Prototype code (or export / workflow file) is in `hackathon/`
-- [ ] This week's slides are in `hackathon/`
-- [ ] The prototype actually runs, and I wrote down how to run it
-- [ ] Ethical reflection written above
+- [ x] Prototype code (or export / workflow file) is in `hackathon/`
+- [ x] This week's slides are in `hackathon/`
+- [ x] The prototype actually runs, and I wrote down how to run it
+- [ x] Ethical reflection written above
 
 ---
 
@@ -72,6 +86,6 @@ _Every hackathon requires this. One honest paragraph beats three vague ones._
 ## 4. Reflection
 
 **What is the most important thing I learned this week?**
-
+The most important thing I learned this week is how to connect a Python program to an LLM through an API. Before this hackathon, I had only interacted with AI through tools such as ChatGPT. I now understand that Python can send text or images to an AI model through an API and use the response inside a program. I also learned how important it is to handle errors and unclear input instead of assuming that an AI answer is always correct.
 **Where does this connect to "AI for Good"?**
-_One concrete link to ethics, sustainability or social impact._
+MoneyTranslate shows how AI can be used to reduce an information barrier. Complex financial language can disadvantage people who have difficulty understanding it. AI can make this information more accessible, but using AI for good also means considering the people who could be harmed when the AI makes a mistake. Therefore, accessibility and reliability both need to be considered when designing the tool.
