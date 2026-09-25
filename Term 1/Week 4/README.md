@@ -40,7 +40,11 @@ Claude API or OpenAI API — Large language model APIs, called from your own Pyt
 **SDG we had to address:**
 10 — Reduced Inequalities
 **What problem does it solve, and for whom?**
-MoneyTranslate helps people who have difficulty understanding complex financial letters, especially people with low literacy or limited financial literacy. Important information such as payment amounts, deadlines and consequences can be difficult to understand when financial organisations use complicated language. MoneyTranslate aims to reduce this information barrier by explaining the most important information in simple language.
+MoneyTranslate is designed for adults in the Netherlands who have difficulty understanding written financial information, especially people with low literacy who are dealing with financial problems.
+This is a significant group. Around 3 million people aged 16–75 in the Netherlands have difficulty with reading, writing and/or numeracy. The Dutch government states that limited basic skills can make everyday tasks such as understanding letters and filling in forms difficult.
+The problem is even more visible among people experiencing financial difficulties. Research by the University of Groningen, together with Kredietbank Nederland and Syncasso, found that 50.3% of the participants with financial problems had difficulty reading. The research also found that people can miss important information in letters and reminders and may not take action, which can make their financial problems worse.
+
+MoneyTranslate aims to reduce this information inequality by turning difficult financial letters into short and simple explanations. It clearly shows important information such as the amount, deadline, required action and possible consequences.
 
 **What did you build?**
 We built a Python tool that uses the OpenAI API to simplify difficult financial information. A user can either paste the text of a financial letter or upload a photo of the letter. MoneyTranslate then shows the amount, deadline, required action, possible consequences and any information that is unclear or missing.
