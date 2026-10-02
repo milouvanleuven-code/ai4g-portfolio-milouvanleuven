@@ -8,7 +8,7 @@
 The assignment was about learning the basic machine learning workflow. We worked with real datasets, trained different classification models such as KNN, Logistic Regression and Decision Trees, and evaluated their performance using accuracy and confusion matrices.
 
 **What did I hand in?**
-_List the files, or link to them. Notebook exports, screenshots, scripts._
+https://www.youtube.com/watch?v=Y_W9cMousSE
 
 **What did I find difficult, and how did I solve it?**
 At first, I found it difficult to understand the difference between accuracy and the types of errors a model can make. Using the confusion matrix helped me understand that a high accuracy does not always mean that a model is good, because some mistakes can have much more serious consequences than others.
@@ -45,7 +45,8 @@ The film follows both materials through different stages: production, products i
 
 
 **Link to the live thing (if any):**
-_Deployed URL, workflow export, video demo - whatever proves it works._
+https://www.youtube.com/watch?v=Y_W9cMousSE
+
 
 **How do I run it?**
 Open the ComfyUI workflow included in the `hackathon/` folder. Make sure the required models are installed and load the workflow into ComfyUI. The shot list contains the prompts and order of the scenes needed to recreate the film.
