@@ -9,6 +9,7 @@ The assignment was about learning the basic machine learning workflow. We worked
 
 **What did I hand in?**
 https://www.youtube.com/watch?v=Y_W9cMousSE
+https://youtu.be/Y_W9cMousSE?is=wEJwg0T4H8UXx_pR
 
 **What did I find difficult, and how did I solve it?**
 At first, I found it difficult to understand the difference between accuracy and the types of errors a model can make. Using the confusion matrix helped me understand that a high accuracy does not always mean that a model is good, because some mistakes can have much more serious consequences than others.
@@ -46,6 +47,7 @@ The film follows both materials through different stages: production, products i
 
 **Link to the live thing (if any):**
 https://www.youtube.com/watch?v=Y_W9cMousSE
+https://youtu.be/Y_W9cMousSE?is=wEJwg0T4H8UXx_pR
 
 
 **How do I run it?**
