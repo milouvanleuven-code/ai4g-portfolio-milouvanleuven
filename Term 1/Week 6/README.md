@@ -48,12 +48,28 @@ judging migrants in general
 
 **What did you build?**
 A Jupyter notebook that takes the raw CTDC dataset and predicts whether a migrant victim of forced labour had their wages withheld or was in debt bondage (target column meansDebtBondageEarnings). We train, tune and fairly compare a DummyClassifier baseline, KNN, Logistic Regression and Random Forest. The main metric is recall. At the end, a caseworker can enter a new case (gender, age band, citizenship, country of exploitation, sector, recruiter, year) and gets a prediction plus a probability.
+We *evaluated* our models primarily using "recall" because our primary objective is to minimize missed cases of human trafficking, where a false negative (leaving an actual victim undetected) has far more severe human and safety consequences than a False Positive.
 
 **Link to the live thing (if any):**
 _Deployed URL, workflow export, video demo - whatever proves it works._
 
 **How do I run it?**
-_Short instructions so someone else can start it._
+Run in Google Colab (Recommended for Quick Testing)
+- Download both the dataset and the .ipynb notebook files from the github [repo](https://github.com/allan-AI-For-good/)
+- Open Google Colab.
+- Click on Upload and select the .ipynb notebook file.
+- Upload your dataset file (dataset.csv) to the Colab session storage by clicking the Files icon on the left sidebar and dragging the file in.
+- Run all cells sequentially by selecting Runtime > Run all from the top menu (or pressing Ctrl + F9).
+
+**Option 2**: Run Locally (VS Code / Local Environment) <br>
+To run the project locally, use the setup script for your operating system. The script automatically creates a Python virtual environment, activates it, and installs all required dependencies before launching VS Code.
+
+- Clone the [repo](https://github.com/allan-AI-For-good/hackathon-week5-classifiers)
+- Run the automated setup script
+    - If you are on windows run [setup script](./hackathon/scripts/setup.bat)
+    - If you are on Mac or Linux run [setup script](./hackathon/scripts/setup.sh)
+- Open VScode or the text editor you use.
+- Run the notebook
 
 **Who did what?**
 Milou: problem research and sources, user group, SDG analysis, slides, ethical reflection
