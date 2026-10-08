@@ -75,6 +75,7 @@ To run the project locally, use the setup script for your operating system. The 
 Milou: problem research and sources, user group, SDG analysis, slides, ethical reflection
 Allan: data cleaning code, pipeline and tuning
 Together: choosing the target and metric, error analysis, recommendation
+Jelle: We did not work together. Me nor Allan has spoken or heard from Jelle. 
 
 **Ethical reflection - what are the risks of your tool? Who could it harm?**
 Our model makes predictions about people who have already been exploited, so its mistakes land on very vulnerable people. A false negative means a victim who lost wages is not prioritised for a wage claim or debt help and stays trapped in debt. That is why we chose recall as our main metric.
