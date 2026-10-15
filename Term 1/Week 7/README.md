@@ -60,7 +60,7 @@ The results are stored in a CSV dataset and displayed through an interactive Str
 The automatic news collection process runs every 30 minutes when the scheduled collector is active.
 
 **Link to the live thing (if any):**
-
+https://solarmood-milou-jkelt2tjctww4cb8fjsbri.streamlit.app/
 
 **How do I run it?**
 The deployed dashboard can be opened directly through the link above.
