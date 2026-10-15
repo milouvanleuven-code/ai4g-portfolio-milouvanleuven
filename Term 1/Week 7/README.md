@@ -61,6 +61,7 @@ The automatic news collection process runs every 30 minutes when the scheduled c
 
 **Link to the live thing (if any):**
 https://solarmood-milou-jkelt2tjctww4cb8fjsbri.streamlit.app/
+https://github.com/milouvanleuven-code/SolarMood-Milou
 
 **How do I run it?**
 The deployed dashboard can be opened directly through the link above.
