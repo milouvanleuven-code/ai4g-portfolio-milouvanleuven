@@ -253,11 +253,11 @@ These results must be taken from the completed Roboflow training and should not 
 
 ### Link to the live thing (if any)
 
-**Roboflow project:** [Insert project link]
+**Roboflow project:** https://app.roboflow.com/milous-workspace/slootwacht-yfyfg/models
 
-**GitHub repository:** [Insert GitHub link]
 
-**Streamlit application:** [Insert deployed URL if available]
+**Streamlit application:** Available locally via
+`slootwacht_app_nieuw.py` in this GitHub repository.
 
 ### How do I run it?
 
@@ -272,7 +272,7 @@ These results must be taken from the completed Roboflow training and should not 
 
 5. Start the application:
 
-   `python -m streamlit run slootwacht_app.py`
+   python -m streamlit run slootwacht_app_nieuw.py
 
 6. Open the local Streamlit page in your browser.
 7. Configure the connection to the trained Roboflow model.
