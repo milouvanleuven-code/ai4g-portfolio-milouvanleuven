@@ -50,7 +50,7 @@ SlootWacht – AI-Powered Monitoring of Dutch Ditches
 
 **My pair partner:**
 
-[Add partner name, or write "Individual project".]
+Kadir Guclu  
 
 **Tool we had to use:**
 
@@ -106,6 +106,26 @@ The problem affects several groups:
 
 **Our primary user**
 
+Our primary target users are **field inspectors, waterway maintenance coordinators and environmental monitoring employees working for Dutch water authorities (waterschappen)**.
+
+The Netherlands has **21 water authorities**, responsible for regional water management and maintaining healthy waterways.
+
+According to the A&O Waterschappen HR Monitor 2025, the Dutch water authority sector employed **16,712 people**, representing an increase of **4.2% compared with 2024**.
+
+Of these employees:
+- **72.7% work full-time** and **27.3% work part-time**.
+- **85.1% have permanent contracts**.
+- The sector employs approximately **15,726 full-time equivalents (FTE)**.
+
+SlootWacht is specifically designed for employees involved in waterway inspection, environmental monitoring and maintenance planning. These professionals represent a smaller, specialised group within the total workforce of 16,712 employees. The exact number and percentage working in these roles are not publicly specified in the HR Monitor.
+
+The potential organisational market consists of **21 Dutch water authorities (100% of the national water authority sector)**, although this does not mean that all 21 organisations or all 16,712 employees would use the application.
+
+By helping inspectors analyse photographs and identify locations requiring further attention, SlootWacht aims to support more efficient visual monitoring without replacing professional ecological judgement.
+
+**Sources:**
+- [A&O Waterschappen – HR Monitor 2025](https://www.aenowaterschappen.nl/nieuws/hr-monitor-2025-groei-en-dynamiek-in-de-sector-waterschappen-zetten-door)
+- [Unie van Waterschappen – About the Dutch Water Authorities](https://unievanwaterschappen.nl/over-de-unie/)
 Our intended user is a **field inspector or maintenance coordinator working for a Dutch water authority**.
 
 This person is responsible for inspecting waterways and deciding whether a location requires further investigation or maintenance.
@@ -258,19 +278,7 @@ These results must be taken from the completed Roboflow training and should not 
 A valid Roboflow API key is required for live model predictions. API keys must not be uploaded to a public GitHub repository.
 
 ### Who did what?
-
-**Milou:**
-- Researched the environmental problem and SDG relevance.
-- Identified the target users.
-- Collected environmental statistics and supporting sources.
-- Developed Python scripts for image collection.
-- Collected and reviewed candidate photographs.
-- Prepared and annotated the Roboflow dataset.
-- Configured the object detection model.
-- Developed the Streamlit application.
-- Documented the project and its ethical implications.
-
-**Partner:** [Add the partner's contribution if applicable.]
+We divided the workload equally and both contributed actively to the project. We worked together on researching the environmental problem, collecting and annotating images, developing the AI model, testing the application and documenting our results. Throughout the hackathon, we communicated regularly, discussed important decisions together and helped each other solve problems. Both of us contributed equally to the final result.
 
 ### Ethical reflection – What are the risks of your tool? Who could it harm?
 
