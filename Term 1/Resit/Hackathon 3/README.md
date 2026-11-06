@@ -1,3 +1,7 @@
+<img width="612" height="307" alt="Schermafbeelding 2026-11-05 234308" src="https://github.com/user-attachments/assets/698d685a-1844-40c4-8326-f99b34fba5df" />
+<img width="698" height="387" alt="Schermafbeelding 2026-11-05 234259" src="https://github.com/user-attachments/assets/6cca55fa-7fb4-408e-86c2-e27cf4ac9d72" />
+<img width="930" height="433" alt="Schermafbeelding 2026-11-05 234249" src="https://github.com/user-attachments/assets/43d89aa8-bc19-4722-bd7e-db7e25c4bcc1" />
+<img width="934" height="427" alt="Schermafbeelding 2026-11-05 234233" src="https://github.com/user-attachments/assets/2eac55bb-a0f2-48c1-904e-2a4a56a3570a" />
 # Term 1 - Week 3: Hackathon 3 Resit
 
 ---
